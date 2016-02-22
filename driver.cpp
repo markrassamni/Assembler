@@ -17,6 +17,7 @@ int main(int argc, char *argv[]) {
     file_parser parser(filename);
     parser.read_file();
     parser.print_file();
+    /*
     cout << "Token at 2,0 is: " << parser.get_token(2,0) << endl;    
     cout << "Token at 2,1 is: " << parser.get_token(2,1) << endl;
     cout << "Token at 2,2 is: " << parser.get_token(2,2) << endl;
@@ -25,7 +26,8 @@ int main(int argc, char *argv[]) {
     cout << "Token at 15,0 is: " << parser.get_token(15,0) << endl;    
     cout << "Token at 15,1 is: " << parser.get_token(15,1) << endl;
     cout << "Token at 15,2 is: " << parser.get_token(15,2) << endl;
-    cout << "Token at 15,3 is: " << parser.get_token(15,3) << endl;    
+    cout << "Token at 15,3 is: " << parser.get_token(15,3) << endl; 
+    */   
             
     }
     catch(file_parse_exception excpt) {

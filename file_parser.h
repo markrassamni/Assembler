@@ -6,6 +6,7 @@
 #define FILE_PARSER_H
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -40,12 +41,18 @@ class file_parser {
         
         // returns the number of lines in the source code file
         int size();
+
+        string filename;
         
     private:
         // your variables and private methods go here
         void read_in_source_file();
         void process_lines();
         void get_line_tokens(int, string);
+
+        vector<string> file_vector;
+
+
 
 };
 
