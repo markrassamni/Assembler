@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <string>
 
 #include "file_parser.h"
 #include "file_parse_exception.h"
@@ -30,7 +31,7 @@ void file_parser::read_file() {
 	     //Pass in lines into vector < ln1, ln2, ln2,...,lnk >
 	     //cout << line << '\n';
 	    	file_vector.push_back(line);
-	    	cout << "Vector[" << i << "]: " << line << endl; 	/* remove */
+	    	//cout << "Vector[" << i << "]: " << line << endl; 	/* remove */
 	    	i++;												/* remove */
 	    }
 	    file_reader.close();
@@ -72,23 +73,35 @@ void file_parser::process_lines() {
 
 void file_parser::parse_line(string s){
 	string line = s;
-	int line_size = line.length();
+	//int line_size = line.length();
 
 		string word; 
-
+		string temp;
+		bool is_comment = 0;
 		istringstream iss(line, istringstream::in);
 		//True when there is not a blank space
 		while( iss >> word )     
 		{
+		  /* ***** TEST CASE ***** */
+		  // When period is encountered rest of line is a comment
+		  
 		  int token_key = token_type(word);
+
+		  if(is_comment){
+		  	 word = temp + ' ' + word;
+		  	 token_key = 0;
+		  }
 
 		  switch(token_key){
 		  	case 0:	// Comment
 		  		line_vector[current_line].comment = word;
-		  		cout << "Comment Found" << endl;
+		  		is_comment = 1;
+		  		temp = word;
+		  		cout << line_vector[current_line].comment << endl;
 		  		break;
 		  	default:
 		  		cout << "Token default" << endl;
+		  		is_comment = 0;
 		  		break;
 
 		   }//end-switch
