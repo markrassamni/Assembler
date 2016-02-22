@@ -48,6 +48,7 @@ class file_parser {
 
         // returns the file specified at runtime
         string filename;
+        
 
 
         // structure to hold data of each line
@@ -84,6 +85,8 @@ class file_parser {
         // Takes in a string and parses the line into individual tokens
         // and places the tokens into a vector 
         //void parse_line();
+
+        int valid_label(string s);
 
 
 
