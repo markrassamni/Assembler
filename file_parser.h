@@ -48,7 +48,7 @@ class file_parser {
 
         // returns the file specified at runtime
         string filename;
-        
+
 
 
         // structure to hold data of each line
@@ -87,6 +87,8 @@ class file_parser {
         //void parse_line();
 
         int valid_label(string s);
+        int valid_opcode(string s);
+        int valid_operand(string s);
 
 
 

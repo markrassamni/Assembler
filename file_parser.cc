@@ -72,6 +72,8 @@ void file_parser::process_lines() {
 }
 
 int is_label = 0;
+int is_opcode = 0;
+int is_operand = 0;
 
 void file_parser::parse_line(string s){
 	string line = s;
@@ -80,12 +82,17 @@ void file_parser::parse_line(string s){
 	//int line_size = line.length();
 	bool is_comment = 0;
 	bool is_quoted = 0;
+	
 	is_label = 0;
+	is_opcode = 0;
+	is_operand = 0;
+
 
 	/* ***** TEST CASE ***** */
 	// Label must begin in column 0
 	if(isspace(line[0])){
 	 is_label++;
+	 is_opcode = 1;
 	}
 
 		string word; 
@@ -123,10 +130,20 @@ void file_parser::parse_line(string s){
 		  	     word = word.substr(0,8);	
 		  		 cout << "Label: " << word << endl;
 		  		 line_vector[current_line].label = word;
+		  		 is_opcode = 1;
 		  		 break;
+		  	case 2: // Opcode
+		  		cout << "Opcode: " << word << endl;
+		  		line_vector[current_line].opcode = word;
+		  		is_opcode = 0; is_operand = 1;
+		  		break;
+		  	case 3: // Operand
+		  		cout << "Operand: " << word << endl;
+		  		line_vector[current_line].operand = word;
+		  		break;
 		  	default:
-		  		//cout << "Token: " << word << endl;
-		  		is_comment = 0;
+		  		throw file_parse_exception("Invalid Token: " + word
+		  			+ ", Could bot identify token type.");
 		  		break;
 
 		   }//end-switch
@@ -140,10 +157,10 @@ int file_parser::token_type(string s){
 	string token = s;
 
 	if(s[0] == '.') return 0;
-	else if(valid_label(s)){  
-		return 1;
-	}
-	else return 2;
+	else if(valid_label(s)) return 1;
+	else if(valid_opcode(s)) return 2;
+	else if(valid_operand(s)) return 3;
+	else return 4;
 }
 
 int file_parser::valid_label(string s){
@@ -162,10 +179,27 @@ int file_parser::valid_label(string s){
 		}
 		else throw file_parse_exception("Invalid Label: " + token + " , First "
 			+ "character must be a letter");
+	 
 	}
+
  return 0;
 }
 
+int file_parser::valid_opcode(string s){
+		string token = s;
+		if(is_opcode == 1){
+			return 1;
+		}
+ return 0;
+}
+
+int file_parser::valid_operand(string s){
+		string token = s;
+		if(is_operand == 1){
+			return 1;
+		}
+ return 0;
+}
 
 string file_parser::get_token(unsigned int row, unsigned int col)
 	{return "Testing";}  
