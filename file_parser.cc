@@ -19,14 +19,20 @@ void file_parser::read_file() {
 	/* ***** TEST CASE ***** */
 	// Check if file exists
 	string line;
-	  ifstream myfile (filename);
-	  if (myfile.is_open())
+	ifstream file_reader (filename);
+	if (file_reader.is_open())
 	  {
-	    while ( getline (myfile,line) )
+	  	int i = 0;
+	    while ( getline (file_reader,line) )
 	    {
-	      cout << line << '\n';
+	     //Pass in lines into vector < ln1, ln2, ln2,...,lnk >
+	     // cout << line << '\n';
+	    	file_vector.push_back(line);
+	    	cout << "Vector Line[" << i << "]: " << file_vector[i] << endl;
+	    	i++;
+
 	    }
-	    myfile.close();
+	    file_reader.close();
 	  }
 
   else //cout << "Unable to open file" << '\n'; 
