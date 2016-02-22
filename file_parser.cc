@@ -63,7 +63,12 @@ void file_parser::process_lines() {
 		string line_data = file_vector[i]; //
 		cout << "line_data[" << i << "]: " << line_data << endl;
 		parse_line(line_data);
-		
+		current_line++;
+
+		cout << "Label: " << line_vector[i].label << endl;
+		cout << "Opcode: " << line_vector[i].opcode << endl;
+		cout << "Operand: " << line_vector[i].operand << endl;
+		cout << "Comment: " << line_vector[i].comment << endl;
 		//cout << line_vector[i].comment << endl;
 	}//end-for
   	
@@ -128,28 +133,28 @@ void file_parser::parse_line(string s){
 				  /* ***** TEST CASE ***** */
 				  // Only first eight characters of a label are used
 		  	     word = word.substr(0,8);	
-		  		 cout << "Label: " << word << endl;
+		  		// cout << "Label: " << word << endl;
 		  		 line_vector[current_line].label = word;
 		  		 is_opcode = 1;
 		  		 break;
 		  	case 2: // Opcode
-		  		cout << "Opcode: " << word << endl;
+		  		//cout << "Opcode: " << word << endl;
 		  		line_vector[current_line].opcode = word;
 		  		is_opcode = 0; is_operand = 1;
 		  		break;
 		  	case 3: // Operand
-		  		cout << "Operand: " << word << endl;
+		  		//cout << "Operand: " << word << endl;
 		  		line_vector[current_line].operand = word;
 		  		break;
 		  	default:
 		  		throw file_parse_exception("Invalid Token: " + word
-		  			+ ", Could bot identify token type.");
+		  			+ ", Could not identify token type.");
 		  		break;
 
 		   }//end-switch
 		 is_label++;
 		}//end-while
-
+		//cout<< "Comment: " << line_vector[current_line].comment << endl;
 	
 }
 
@@ -196,6 +201,7 @@ int file_parser::valid_opcode(string s){
 int file_parser::valid_operand(string s){
 		string token = s;
 		if(is_operand == 1){
+			is_operand++;
 			return 1;
 		}
  return 0;
