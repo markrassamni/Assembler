@@ -42,15 +42,48 @@ class file_parser {
         // returns the number of lines in the source code file
         int size();
 
-        string filename;
+
         
     private:
-        // your variables and private methods go here
-        void read_in_source_file();
+
+        // returns the file specified at runtime
+        string filename;
+
+
+        // structure to hold data of each line
+        struct data{
+            string label;
+            string opcode;
+            string operand;
+            string comment;
+        };
+
+        
+        
+        // reads the vector structure and iterates through each item and 
+        // stores information of each item into a vector structure to store
+        // in a struct data
         void process_lines();
+
+
+        // reads a line and returns the type of tokens it contains.
+        void parse_line(string s);
+
+        // reads a token and determines type
+        int token_type(string s);
+
         void get_line_tokens(int, string);
 
+        // data structure to hold all the lines of the file provided
         vector<string> file_vector;
+
+        // data structure to hold stuct with data on each line
+        vector<data> line_vector;
+
+
+        // Takes in a string and parses the line into individual tokens
+        // and places the tokens into a vector 
+        //void parse_line();
 
 
 
