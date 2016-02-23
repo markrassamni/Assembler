@@ -11,7 +11,7 @@ using namespace std;
 //public methods
 file_parser::file_parser(string s) {
 	filename = s;
-	cout << "Parsing file: " << s << endl;
+	///cout << "Parsing file: " << s << endl;
 }
 file_parser::~file_parser() {}
 
@@ -61,14 +61,14 @@ void file_parser::process_lines() {
     // Iterate through Line_vector
 	for (unsigned i=0; i< size(); i++){
 		string line_data = file_vector[i]; //
-		cout << "line_data[" << i << "]: " << line_data << endl;
+		//cout << "line_data[" << i << "]: " << line_data << endl;
 		parse_line(line_data);
 		current_line++;
 
-		cout << "Label: " << line_vector[i].label << endl;
-		cout << "Opcode: " << line_vector[i].opcode << endl;
-		cout << "Operand: " << line_vector[i].operand << endl;
-		cout << "Comment: " << line_vector[i].comment << endl;
+		//cout << "Label: " << line_vector[i].label << endl;
+		//cout << "Opcode: " << line_vector[i].opcode << endl;
+		//cout << "Operand: " << line_vector[i].operand << endl;
+		//cout << "Comment: " << line_vector[i].comment << endl;
 		//cout << line_vector[i].comment << endl;
 	}//end-for
   	
@@ -208,8 +208,40 @@ int file_parser::valid_operand(string s){
 }
 
 string file_parser::get_token(unsigned int row, unsigned int col)
-	{return "Testing";}  
-void file_parser::print_file() {}
+	{
+		//cout << line_vector[row].operand << endl;
+
+		string line = file_vector[row];
+		int column = col;
+
+		int i = 0;
+		string word;
+		istringstream iss(line, istringstream::in);
+		while( (i <= col) && (iss >> word)){
+			i++;
+		}
+
+		if(word.at(0) == '.') column = 3; 
+
+		switch(column){
+			case 0 : return line_vector[row].label; break;
+			case 1 : return line_vector[row].opcode; break;
+			case 2 : return line_vector[row].operand; break;
+			case 3 : return line_vector[row].comment; break;
+			default: return " "; 
+		}
+	}  
+
+void file_parser::print_file() {
+	// Iterate through Line_vector
+	for (unsigned i=0; i< size(); i++){
+		string line_data = file_vector[i]; //
+		cout << line_data << endl;
+		current_line++;
+
+	
+	}//end-for
+}
 
 
 //private methods
