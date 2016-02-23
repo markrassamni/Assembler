@@ -218,6 +218,9 @@ string file_parser::get_token(unsigned int row, unsigned int col)
 		string word;
 		istringstream iss(line, istringstream::in);
 		while( (i <= col) && (iss >> word)){
+			if(column == 3){
+				if(word.at(0) != '.') return " "; 	
+			}
 			i++;
 		}
 
