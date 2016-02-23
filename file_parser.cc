@@ -87,10 +87,12 @@ void file_parser::parse_line(string s){
 	//int line_size = line.length();
 	bool is_comment = 0;
 	bool is_quoted = 0;
+
 	
 	is_label = 0;
 	is_opcode = 0;
 	is_operand = 0;
+
 
 
 	/* ***** TEST CASE ***** */
@@ -107,7 +109,9 @@ void file_parser::parse_line(string s){
 		/* ***** TEST CASE ***** */
 		// Must be a whitespace between each of the four fields
 		while( iss >> word )     
-		{
+		{	
+
+
 
 		  int token_key = token_type(word);
 
@@ -118,10 +122,14 @@ void file_parser::parse_line(string s){
 		  	 word = temp + ' ' + word;
 		  	 token_key = 0;
 		  }
-		  else if(is_quoted){
-
-		  }
-
+		  else if(word.find('\'') != -1){
+		  	 is_quoted = 1;
+		  	 int f_quote = line.find(word);
+		  	 int s_quote = line.find_last_of('\'');
+		  	 word = line.substr(f_quote, s_quote - f_quote + 1);
+		  	 token_key = 3;
+		  }else if(is_quoted) break;
+		   
 		  switch(token_key){
 		  	case 0:	// Comment
 		  		line_vector[current_line].comment = word;
@@ -224,7 +232,7 @@ string file_parser::get_token(unsigned int row, unsigned int col)
 			i++;
 		}
 
-		if(word.at(0) == '.') column = 3; 
+		if(word.at(0) == '.') column = 3; // Can break if comment has a word that starts with .
 
 		switch(column){
 			case 0 : return line_vector[row].label; break;
