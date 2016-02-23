@@ -1,3 +1,5 @@
-Makefile
 driver
-file_parser.o
+
+*.o
+
+Makefile
