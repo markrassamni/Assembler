@@ -73,7 +73,6 @@ class file_parser {
         // reads a token and determines type
         int token_type(string s);
 
-        void get_line_tokens(int, string);
 
         // data structure to hold all the lines of the file provided
         vector<string> file_vector;
@@ -81,11 +80,7 @@ class file_parser {
         // data structure to hold stuct with data on each line
         vector<data> line_vector;
 
-
-        // Takes in a string and parses the line into individual tokens
-        // and places the tokens into a vector 
-        //void parse_line();
-
+        //Checks against the rules specified if they can be tokens
         int valid_label(string s);
         int valid_opcode(string s);
         int valid_operand(string s);

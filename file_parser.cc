@@ -128,6 +128,7 @@ void file_parser::parse_line(string s){
 		  	 int s_quote = line.find_last_of('\'');
 		  	 word = line.substr(f_quote, s_quote - f_quote + 1);
 		  	 token_key = 3;
+
 		  }else if(is_quoted) break;
 		   
 		  switch(token_key){
@@ -254,8 +255,3 @@ void file_parser::print_file() {
 	}//end-for
 }
 
-
-//private methods
-
-
-void file_parser::get_line_tokens (int line_number, string the_line) {}
