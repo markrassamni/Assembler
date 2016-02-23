@@ -22,7 +22,7 @@ void file_parser::read_file() {
 	/* ***** TEST CASE ***** */
 	// Check if file exists
 	string line;
-	ifstream file_reader (filename);
+	ifstream file_reader (filename.c_str());
 	if (file_reader.is_open())
 	  {
 	  	int i = 0; 												/* remove */
