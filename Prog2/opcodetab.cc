@@ -34,16 +34,19 @@ string opcodetab::get_machine_code(string s){
 	 /* ***** TEST CASE ***** */
 	// Assembler is not case sensitive
 	string op = s;
-	int i = 0;
+
+	// Remove '+' if found 
+	  if(op[0] == '+'){
+	  	op = op.substr(1);
+	  }
+	//Change op to all upper case
+	  int i = 0;
 	  while (op[i])
 	  {
 	    op[i] = toupper(op[i]);
 	    i++;
 	  }
-	  // Remove '+' if found 
-	  if(op[0] == '+'){
-	  	op = op.substr(1,op.size());
-	  }
+	  
 
 	  // If the opcode is found, set an iterator to the position of the opcode
 	  // in otherwords return the position of the opcode
@@ -68,6 +71,14 @@ string opcodetab::get_machine_code(string s){
 int opcodetab::get_instruction_size(string s){
 	string op = s;
 	bool plus = false;
+
+	// Test Case: the opcode must be prepended with a '+' for format 4.
+      if(op[0] == '+'){
+      	op = op.substr(1);
+      	plus = true;
+      }
+
+    //Change op to all upper case
 	int i = 0;
 	  while (op[i])
 	  {
@@ -75,11 +86,7 @@ int opcodetab::get_instruction_size(string s){
 	    i++;
 	  }
 
-	  // Test Case: the opcode must be prepended with a '+' for format 4.
-      if(op[0] == '+'){
-      	op = op.substr(1,op.size());
-      	plus = true;
-      }
+	  
 
        // If the opcode is found, set an iterator to the position of the opcode
 	  // in otherwords return the position of the opcode
@@ -88,7 +95,7 @@ int opcodetab::get_instruction_size(string s){
 	  	throw opcode_error_exception("Could not find opcode: " + op);
 	  else if(plus){
 	  	if(opcode_it->second.format != 3)
-	  		throw opcode_error_exception(op + "is not a valid format 4 opcode.");
+	  		throw opcode_error_exception("+" + op + " is not a valid format to be extended with '+'.");
 	  	else
 	  		return 4;
 	  }else
