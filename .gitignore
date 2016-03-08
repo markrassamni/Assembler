@@ -1,5 +1,5 @@
 driver
 
-*.o
+driver.o
 
-Makefile
+file_parser.o
