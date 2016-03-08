@@ -26,7 +26,8 @@ int main(int argc, char *argv[]) {
     cout << "Token at 15,0 is: " << parser.get_token(15,0) << endl;    
     cout << "Token at 15,1 is: " << parser.get_token(15,1) << endl;
     cout << "Token at 15,2 is: " << parser.get_token(15,2) << endl;
-    cout << "Token at 15,3 is: " << parser.get_token(15,3) << endl; 
+    //cout << "Token at 15,3 is: " << parser.get_token(15,3) << endl; 
+    cout << "Token at 24,1 is: " << parser.get_token(24,1) << endl;
     
             
     }
