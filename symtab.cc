@@ -1,5 +1,5 @@
 /*
- * symtab.cpp
+ * symtab.cc
  *
  *  Created on: Apr 22, 2016
  *      Author: markrassamni
