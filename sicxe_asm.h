@@ -39,7 +39,7 @@ private:
 	stringstream ss;
 	opcodetab opcode;
 	symtab table;
-	ofstream myfile;
+	ofstream file; //using
 
 	struct data{
 		string address;
@@ -51,7 +51,7 @@ private:
 
 	data data;
 
-	map<string,int> m_asm_directives;
+	map<string,int> m_asm_directives; // using
 	map<string,int>::iterator asm_iter;
 
 	map<string,string> reg;
@@ -134,6 +134,10 @@ private:
 	void pass1;
 	//string check_dir;
 	void output;
+	string colName [];
+	//const string colName [];
+	string underlines [];
+
 
 
 };

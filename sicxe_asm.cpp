@@ -73,8 +73,8 @@ void sicxe_asm::addresses(file_parser parse) {
 					ss << "Error on line: " << i << ". Invalid operation! Opcode operation before Start.";
 					throw opcode_error_exception(ss.str());
 				}
-				else if(start != -1 && !(data.opcode[0] == '.' || data.opcode.size == 0)) {
-					try {  // ERROR SETTING ADDRESS
+				else if(start != -1 && !(data.opcode[0] == '.' || data.opcode.size() == 0)) {
+					try {  // ERROR SETTING ADDRESS - fixed?
 						//string op = data.opcode;
 						//asm_address += opcodetab::get_instruction_size(op);
 						//asm_address += opcodetab::get_instruction_size(data.opcode);
@@ -103,7 +103,31 @@ void sicxe_asm::pass2() {
 }
 
 void sicxe_asm::output(string filename) {
+	string colName [] = { "Line#","Address","Label","Opcode","Operand","Machine Code" };
+	string underlines [] = { "=====", "=======", "=====", "======", "=======", "=======" };
+	filename = filename.substr(0,filename.length()-4) + ".lis";
+	file.open(filename.c_str());
 
+	for (int i = 0; i < 6; i++){
+	        file << setw(15) << setfill(' ') << colName[i];
+	        file << setw(15) << setfill(' ') << underlines[i];
+	    	file << endl;
+	}
+	for (unsigned int i = 0; i < vec.size(); i++){ //why unsigned???
+	        file << setw(15) << setfill(' ') << i+1;
+	        if((vec[i].label[0] == '.' || vec[i].label.size() == 0))
+	            vec[i].label = "";
+	        if((vec[i].opcode[0] == '.' || vec[i].opcode.size() == 0))
+	            vec[i].opcode = "";
+	        if((vec[i].operand[0] == '.' || vec[i].operand.size() == 0))
+	            vec[i].operand = "";
+	        file << setw(15) << setfill(' ')  << vec[i].address;
+	        file << setw(15) << setfill (' ') << vec[i].label;
+	        file << setw(15) << setfill (' ') << vec[i].opcode;
+	        file << setw(15) << setfill (' ') << vec[i].operand;
+	        file << setw(15) << setfill (' ') << vec[i].machine << endl;
+	    }
+	file.close();
 }
 
 
